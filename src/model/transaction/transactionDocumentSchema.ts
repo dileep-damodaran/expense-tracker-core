@@ -5,7 +5,9 @@ import { ITransactionDocument as ITransactionDocument } from "./transactionDocum
 
 let transactionSchema = new mongoose.Schema({
     user_id: { type: String, required: true, unique: false },
-    date: { type: Date, required: true, unique: false },
+    year: { type: Number, required: true, unique: false },
+    month: { type: Number, required: true, unique: false },
+    date: { type: Number, required: true, unique: false },
     amount: { type: Number, required: true, unique: false },
     type: {
         type: String,
