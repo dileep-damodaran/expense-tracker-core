@@ -1,5 +1,6 @@
-export interface IUser{
-    user_name:string,
+export interface IUser {
+    user_name: string,
+    role: string,
     password: string,
     permission_profile: string,
     first_name: string,

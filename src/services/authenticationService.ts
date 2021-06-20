@@ -16,19 +16,20 @@ export class AuthenticationService{
 
             const user : IUserDocument = await UserService.getByUserName(userName);
 
+
             if(!user)
             {
-                authResult = new AuthenticationResult(false, null, null,'User not found.');
+                authResult = new AuthenticationResult(false, null, null,null,'User not found.');
                 return resolve(authResult);
             }
 
             else if(user.is_deleted){
-                authResult = new AuthenticationResult(false,null, null, 'User deleted.');
+                authResult = new AuthenticationResult(false,null, null, null,'User deleted.');
                 return resolve(authResult);
             }
 
             else if(!user.is_active){
-                authResult = new AuthenticationResult(false, null, null, 'User is disabled.');
+                authResult = new AuthenticationResult(false, null, null,null, 'User is disabled.');
                 return resolve(authResult);
             }
             else{
@@ -36,7 +37,7 @@ export class AuthenticationService{
                 const isPasswordMatch : boolean = bcrypt.compareSync(password, user.password);
     
                 if(!isPasswordMatch){
-                    authResult = new AuthenticationResult(false, null, null, 'Invalid password.');
+                    authResult = new AuthenticationResult(false, null, null,null, 'Invalid password.');
                     return resolve(authResult);
                 }
                 else{
@@ -44,7 +45,7 @@ export class AuthenticationService{
                     
                     const refreshToken:string = AuthenticationService.generateRefreshToken(user);
                     const accessToken: string = AuthenticationService.generateAccessToken(user, permissions);
-                    authResult = new AuthenticationResult(true, refreshToken,accessToken, null);
+                    authResult = new AuthenticationResult(true, refreshToken,accessToken,user, null);
             
                     return resolve(authResult);
                 }

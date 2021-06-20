@@ -3,7 +3,7 @@ import * as https from "https";
 import { Config } from './config/config';
 import { Database } from './data/db';
 import { Bootstrap } from './helpers/bootstrap';
-import { MiddleWareConfig } from './middleWares/middleWareConfig';
+import { MiddleWareConfig } from './middlewares/middleWareConfig';
 
 require("dotenv").config();
 require("dotenv-safe").config();

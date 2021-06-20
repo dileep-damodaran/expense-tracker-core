@@ -7,7 +7,7 @@ export interface ITransaction {
     type: string,
     description: string,
     category_id: string,
-    tags: [string],
+    tag_ids: [string],
     source_id: string
 }
 

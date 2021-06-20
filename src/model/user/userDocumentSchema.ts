@@ -1,4 +1,6 @@
 import * as mongoose from "mongoose";
+import { ApplicationEnums } from "../../helpers/enum";
+import { EnumManager } from "../../helpers/enumManager";
 import { IUserDocument as IUserDocument } from "./userDocument";
 
 let userSchema = new mongoose.Schema({
@@ -11,14 +13,19 @@ let userSchema = new mongoose.Schema({
     email: { type: String, unique: false, required: false },
     country_code: { type: String, unique: false, required: false },
     phone: { type: String, unique: false, required: false },
+    role: {
+        type: String,
+        enum: EnumManager.getNames(ApplicationEnums.USER_MANAGEMENT.ROLE),
+        required: true
+    },
     fcm_token: { type: String, unique: false, required: false },
     is_verified: { type: Boolean, unique: false, required: true, default: false },
     is_active: { type: Boolean, unique: false, required: true, default: true },
     is_deleted: { type: Boolean, unique: false, required: true, default: false }
 },
     {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
-});
+        timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+    });
 
 userSchema.index({ user_name: 1, email: 1, phone: 1 });
 
