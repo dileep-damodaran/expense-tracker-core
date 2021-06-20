@@ -1,7 +1,8 @@
 export interface ITransaction {
-
     user_id: string,
-    date: Date,
+    year: number,
+    month: number,
+    date: string,
     amount: number,
     type: string,
     description: string,
