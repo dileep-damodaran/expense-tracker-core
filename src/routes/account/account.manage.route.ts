@@ -58,12 +58,6 @@ export class AccountController{
             res.status(200).send(result);
         }));
 
-        router.get('/', asyncMiddleWare(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-            res.status(200).send('success');
-        }));
-
-        
-
         return router;
         
     }
