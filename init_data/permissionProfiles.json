@@ -1,0 +1,16 @@
+[{
+    "name": "system_admin",
+    "display_name": "System Administrator",
+    "description": "System administrator manages the entire system",
+    "scope": "ROOT",
+    "permissions": [
+        "system.manage",
+        "user.create",
+        "user.replace",
+        "user.update",
+        "user.list",
+        "user.view",
+        "user.delete"
+    ],
+    "active": true
+}]
