@@ -7,7 +7,8 @@ let transactionSchema = new mongoose.Schema({
     user_id: { type: String, required: true, unique: false },
     year: { type: Number, required: true, unique: false },
     month: { type: Number, required: true, unique: false },
-    date: { type: Number, required: true, unique: false },
+    day: { type: Number, required: true, unique: false },
+    date: { type: Date, required: true, unique: false },
     amount: { type: Number, required: true, unique: false },
     type: {
         type: String,
@@ -22,7 +23,7 @@ let transactionSchema = new mongoose.Schema({
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
-transactionSchema.index({ user_id: 1, category_id: 1, source_id: 1 });
+transactionSchema.index({ user_id: 1, category_id: 1, source_id: 1, date: 1 });
 export let Transaction: mongoose.Model<ITransactionDocument> = mongoose.model<ITransactionDocument>("transaction", transactionSchema);
 
 

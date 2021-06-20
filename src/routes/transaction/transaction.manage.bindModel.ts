@@ -8,7 +8,7 @@ export class TransactionBindingSchema {
             [Segments.BODY]: Joi.object().keys({
                 year: Joi.number().min(2021).required(),
                 month: Joi.number().min(1).max(12).required(),
-                date: Joi.number().min(1).max(31).required(),
+                day: Joi.number().min(1).max(31).required(),
                 type: Joi.string().valid(
                     ApplicationEnums.TRANSACTION_MANAGEMENT.TYPE[ApplicationEnums.TRANSACTION_MANAGEMENT.TYPE.EXPENSE],
                     ApplicationEnums.TRANSACTION_MANAGEMENT.TYPE[ApplicationEnums.TRANSACTION_MANAGEMENT.TYPE.INCOME]
@@ -18,6 +18,22 @@ export class TransactionBindingSchema {
                 category_id: Joi.string().required(),
                 source_id: Joi.string().required(),
                 tag_ids: Joi.array().optional()
+            })
+        };
+
+    public static getTransaction =
+        {
+            [Segments.BODY]: Joi.object().keys({
+                year: Joi.number().min(2021).required(),
+                month: Joi.number().min(1).max(12).required()
+            })
+        };
+
+    public static getTransactionSummary =
+        {
+            [Segments.BODY]: Joi.object().keys({
+                year: Joi.number().min(2021).required(),
+                month: Joi.number().min(1).max(12).optional(),
             })
         };
 

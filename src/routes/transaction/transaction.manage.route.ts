@@ -23,7 +23,7 @@ export class TransactionController {
             const uId = req.user.uid;
             const year = req.body.year;
             const month = req.body.month;
-            const date = req.body.date;
+            const day = req.body.day;
             const type = req.body.type;
             const amount = req.body.amount;
             const description = req.body.description;
@@ -42,7 +42,8 @@ export class TransactionController {
             transaction.user_id = user.id;
             transaction.year = year;
             transaction.month = month;
-            transaction.date = date;
+            transaction.day = day;
+            transaction.date = new Date(year, month, day);
             transaction.type = type;
             transaction.amount = amount;
             transaction.description = description;
@@ -53,6 +54,42 @@ export class TransactionController {
             const created = await TransactionService.save(transaction);
 
             res.status(200).send(created);
+
+        }));
+
+        router.post('/me', guard.check("me.transaction.list"), celebrate(TransactionBindingSchema.getTransaction), asyncMiddleWare(async (req, res, next) => {
+
+            const uId = req.user.uid;
+            const year = req.body.year;
+            const month = req.body.month;
+
+            const user = await UserService.getById(uId);
+
+            if (!user)
+                throw boom.notFound('User not found.');
+
+            const filter = { user_id: user.id, year: year, month: month };
+            const order = { date: -1.0 };
+            const transactions = await TransactionService.getMany(filter, order);
+
+            res.status(200).send(transactions);
+
+        }));
+
+        router.post('/me/summary', guard.check("me.transaction.summary"), celebrate(TransactionBindingSchema.getTransactionSummary), asyncMiddleWare(async (req, res, next) => {
+
+            const uId = req.user.uid;
+            const year = req.body.year;
+            const month = req.body.month;
+
+            const user = await UserService.getById(uId);
+
+            if (!user)
+                throw boom.notFound('User not found.');
+
+            const summary = await TransactionService.getSummary(user.id, year, month);
+
+            res.status(200).send(summary);
 
         }));
 

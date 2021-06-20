@@ -25,7 +25,9 @@
             "category.create",
             "category.update",
             "tag.create",
+            "me.transaction.list",
             "transaction.dashboard",
+            "me.transaction.summary",
             "premium.transaction.dashboard"
         ],
         "active": true
@@ -39,7 +41,10 @@
             "transaction.create",
             "transaction.update",
             "tag.create",
+            "me.transaction.list",
+            "me.transaction.summary",
             "transaction.dashboard"
+
         ],
         "active": true
     }
