@@ -2,9 +2,9 @@ import * as mongoose from "mongoose";
 import { ICategoryDocument as ICategoryDocument } from "./categoryDocument";
 
 let categorySchema = new mongoose.Schema({
-    user_id: { type: String, required: true, unique: false },
+    user_id: { type: String, required: false, unique: false },
     name: { type: String, required: true, unique: false },
-    is_default: { type: Boolean, required: true, unique: false },
+    is_default: { type: Boolean, required: true, unique: false, default: false },
 }, {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });

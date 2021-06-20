@@ -1,0 +1,22 @@
+[{
+    "name": "Taxes",
+    "is_default": true
+}, {
+    "name": "Salary",
+    "is_default": true
+}, {
+    "name": "Insurance",
+    "is_default": true
+}, {
+    "name": "Shopping",
+    "is_default": true
+}, {
+    "name": "Bills and Utilities",
+    "is_default": true
+}, {
+    "name": "Education",
+    "is_default": true
+}, {
+    "name": "Entertainment",
+    "is_default": true
+}]

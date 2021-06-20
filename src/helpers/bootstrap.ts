@@ -1,4 +1,5 @@
 import { Config } from "../config/config";
+import { Category } from "../model/category/categoryDocumentSchema";
 import { PermissionProfile } from "../model/permissionProfile/permissionProfileDocumentSchema";
 import { IUser } from "../model/user/user";
 import { User } from "../model/user/userDocumentSchema";
@@ -11,6 +12,7 @@ export class Bootstrap {
     public static async initialize() {
 
         await Bootstrap.createPermissionProfiles();
+        await Bootstrap.createDefaultCategories();
         await Bootstrap.createSystemAdministrator();
         await Bootstrap.createDefaultConsumer();
         await Bootstrap.createDefaultPremiumConsumer();
@@ -42,6 +44,35 @@ export class Bootstrap {
         await Promise.all(promiseCreateOrUpdatePermissionProfiles);
 
         logger.info("[Completed] : Adding/Updating permission profiles.");
+    }
+
+    private static async createDefaultCategories() {
+
+        logger.info("[Started] : Adding/Updating categories.");
+        const data = require("./../../init_data/categories.json");
+
+        let promiseCreateOrUpdateCategories = data.map(async (x) => {
+
+            return new Promise((resolve, reject) => {
+
+                Category.findOneAndUpdate({
+                    name: x.name,
+                    is_default: true
+                },
+                    { name: x.name, is_default: x.is_default },
+                    {
+                        upsert: true,
+                        new: true
+                    }).then((result) => {
+                        resolve(result)
+                    }).catch((err) => reject(err));
+            });
+
+        });
+
+        await Promise.all(promiseCreateOrUpdateCategories);
+
+        logger.info("[Completed] : Adding/Updating categories.");
     }
 
     private static async createSystemAdministrator() {
